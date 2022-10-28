@@ -1,0 +1,68 @@
+
+<div class="dashboard-container" [class.is-mobile]="mobileQuery.matches">
+
+    <!-- empieza toolbar-->
+    <mat-toolbar color="primary" class="dashboard-toolbar">
+        <button mat-icon-button class="" (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="h1.app-name">Menu</h1>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                        
+                    </button>
+                </li>
+                <li>
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Cerrar Cesion
+                        </button>
+
+                    </mat-menu>
+                </li>
+            </ul>
+        </div>
+
+    </mat-toolbar>
+
+    
+    <!-- empieza sidnev-->
+    <mat-sidenav-container class="sidenav-container"
+                            [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #snav [mode]="mobileQuery.matches? 'over': 'side'"
+                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
+            <mat-nav-list>
+                <!-- datos del perfil-->
+                <div class="profile-card">
+                    <div class="header">
+                        <h2>Victor Ortiz</h2>
+                        <h4>Victorup1902@gmail.com</h4>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+
+                    <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of menuNav">
+                        <mat-icon class="icon">{{ nav.icon}}</mat-icon>
+                        {{nav.name}}
+                    </a>
+
+                
+            </mat-nav-list>
+
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+</div>
