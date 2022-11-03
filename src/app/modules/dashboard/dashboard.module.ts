@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './pages/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { PqrModule } from '../pqr/pqr.module';
 
 
 
@@ -12,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    PqrModule
   ]
 })
 export class DashboardModule { }

@@ -13,11 +13,11 @@ export class SidenavComponent implements OnInit {
   menuNav = [
     {name : "Inicio", route: "home", icon:"home" },
     {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
-    {name : "Crear solicitud", route: "solicitud", icon:"assignment" },
+    {name : "Crear pqr", route: "Pqr", icon:"assignment" },
     {name : "Contacto soporte", route: "soporte", icon:"build" }
   ]
 
-  constructor(media: MediaMatcher) { 
+  constructor(media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px');
   }
 
