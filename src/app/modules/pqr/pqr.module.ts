@@ -4,12 +4,14 @@ import { PqrComponent } from './components/pqr/pqr.component';
 import { MaterialModule } from '../shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewPqrComponent } from './components/new-pqr/new-pqr.component';
 
 
 
 @NgModule({
   declarations: [
-    PqrComponent
+    PqrComponent,
+    NewPqrComponent
   ],
   imports: [
     CommonModule,

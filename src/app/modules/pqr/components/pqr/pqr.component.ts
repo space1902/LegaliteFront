@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { PqrService } from 'src/app/modules/shared/services/pqr.service';
+import { NewPqrComponent } from '../new-pqr/new-pqr.component';
 
 @Component({
   selector: 'app-pqr',
@@ -9,7 +12,9 @@ import { PqrService } from 'src/app/modules/shared/services/pqr.service';
 })
 export class PqrComponent implements OnInit {
 
-  constructor(private pqrService: PqrService) { }
+  constructor(private pqrService: PqrService,
+             public dialog: MatDialog,
+             private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getPqr();
@@ -42,6 +47,28 @@ export class PqrComponent implements OnInit {
 
       this.dataSource = new MatTableDataSource<PqrElement>(dataPqr);
     }
+  }
+  openPqrDialog(){
+    const dialogRef = this.dialog.open(NewPqrComponent , {
+      width: '650px'
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 1){
+        this.openSnackBar("Pqr agregada", "Exitosa");
+        this.getPqr();
+      }else if(result === 2){
+        this.openSnackBar("Error al agregar Pqr", "Fallido");
+        this.getPqr();
+
+      }
+    });
+  }
+
+  openSnackBar(message:string, action:string) : MatSnackBarRef<SimpleSnackBar>{
+    return this.snackBar.open(message, action, {
+      duration: 3000
+    });
   }
 }
 

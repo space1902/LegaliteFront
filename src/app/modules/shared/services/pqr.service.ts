@@ -15,4 +15,9 @@ export class PqrService {
     const endpoint = `${base_url}searchpqr/`;
     return this.http.get(endpoint);
   }
+
+  savePqr(body: any){
+    const endpoint = `${base_url}createpqr/`;
+    return this.http.post(endpoint, body);
+  }
 }

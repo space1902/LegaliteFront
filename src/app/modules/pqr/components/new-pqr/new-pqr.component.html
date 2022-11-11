@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Crear nueva PQR</h2>
+<mat-dialog-content>
+  <form [formGroup]="pqrForm">
+    <div class="pqr-container">
+      <mat-form-field>
+        <input matInput placeholder="Asunto" formControlName="asunto" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nit (solo numeros)" formControlName="idCliente" type="number" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nombre" formControlName="cliente" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Descripcion" formControlName="descripcion" required></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="pqrForm.invalid">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+  <button mat-button color="primary"(click)="onCancel()">
+    <mat-icon>cancel</mat-icon> Cancelar
+  </button>
+</mat-dialog-actions>
