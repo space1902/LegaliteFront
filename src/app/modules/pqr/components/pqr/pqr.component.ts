@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { PqrService } from 'src/app/modules/shared/services/pqr.service';
 import { NewPqrComponent } from '../new-pqr/new-pqr.component';
 
@@ -83,11 +84,30 @@ export class PqrComponent implements OnInit {
     });
   }
 
+  delete(idPqr: number){
+    const dialogRef = this.dialog.open(ConfirmComponent , {
+      width: '450px',
+      data: {idPqr: idPqr}
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 1){
+        this.openSnackBar("Pqr eliminada", "Exitosa");
+        this.getPqr();
+      }else if(result === 2){
+        this.openSnackBar("Error al eliminar Pqr", "Fallido");
+        this.getPqr();
+
+      }
+    });
+  }
+
   openSnackBar(message:string, action:string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
       duration: 3000
     });
   }
+
 }
 
 export interface PqrElement{

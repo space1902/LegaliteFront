@@ -25,4 +25,9 @@ export class PqrService {
     const endpoint = `${base_url}updatepqr/ ${id}`;
     return this.http.put(endpoint, body);
   }
+
+  deletePqr(id: any) {
+    const endpoint = `${base_url}deletepqr/ ${id}`;
+    return this.http.delete(endpoint);
+  }
 }
