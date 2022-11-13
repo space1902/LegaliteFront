@@ -33,10 +33,22 @@
         <td mat-cell *matCellDef="let element">{{element.idPqr}}</td>
       </ng-container>
 
-      <!-- name colum -->
-      <ng-container matColumnDef="name">
+      <!-- asuto colum -->
+      <ng-container matColumnDef="asunto">
         <th mat-header-cell *matHeaderCellDef>Asunto</th>
         <td mat-cell *matCellDef="let element">{{element.asunto}}</td>
+      </ng-container>
+
+      <!-- cliente colum -->
+      <ng-container matColumnDef="clinte">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{element.cliente}}</td>
+      </ng-container>
+
+      <!-- nit colum -->
+      <ng-container matColumnDef="nit">
+        <th mat-header-cell *matHeaderCellDef>Nit</th>
+        <td mat-cell *matCellDef="let element">{{element.idCliente}}</td>
       </ng-container>
 
       <!-- description colum -->
@@ -55,10 +67,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element; let i=index">
-          <button mat-icon-button color="accent">
+          <button mat-icon-button color="primary" (click)="edit(element.idPqr, element.asunto, element.descripcion, element.cliente)">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
-          <button mat-icon-button color="accent">
+          <button mat-icon-button color="primary">
             <mat-icon aria-label="Delete">delete_forever</mat-icon>
           </button>
         </td>

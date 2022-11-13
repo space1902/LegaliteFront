@@ -20,4 +20,9 @@ export class PqrService {
     const endpoint = `${base_url}createpqr/`;
     return this.http.post(endpoint, body);
   }
+
+  updatePqr(body: any, id: any) {
+    const endpoint = `${base_url}updatepqr/ ${id}`;
+    return this.http.put(endpoint, body);
+  }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PqrService } from 'src/app/modules/shared/services/pqr.service';
 
 @Component({
@@ -11,7 +11,14 @@ import { PqrService } from 'src/app/modules/shared/services/pqr.service';
 export class NewPqrComponent implements OnInit {
 
   public pqrForm:FormGroup;
-  constructor(private fb:FormBuilder, private pqrService: PqrService, private dialogRef: MatDialogRef<NewPqrComponent>) {
+  public estadoForm: String = "";
+  constructor(private fb:FormBuilder,
+              private pqrService: PqrService,
+              private dialogRef: MatDialogRef<NewPqrComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    console.log(data);
+    this.estadoForm = "Agregar";
 
 
     this.pqrForm = this.fb.group({
@@ -20,6 +27,11 @@ export class NewPqrComponent implements OnInit {
       cliente: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
+
+    if(data != null) {
+      this.updateForm(data)
+      this.estadoForm = "Actualizar";
+    }
    }
 
   ngOnInit(): void {
@@ -32,7 +44,16 @@ export class NewPqrComponent implements OnInit {
       cliente: this.pqrForm.get('cliente')?.value,
       descripcion: this.pqrForm.get('descripcion')?.value
     }
-
+    if(data != null) {
+      //actualizar
+      this.pqrService.updatePqr(data, this.data.idPqr)
+          .subscribe((data: any) => {
+            this.dialogRef.close(1);
+          }, (error:any) => {
+            this.dialogRef.close(2);
+          })
+    }else {
+      //crear nueva pqr
     this.pqrService.savePqr(data)
         .subscribe((data: any) => {
           console.log(data);
@@ -40,10 +61,20 @@ export class NewPqrComponent implements OnInit {
         }, (error) => {
           this.dialogRef.close(2);
         })
+      }
   }
 
   onCancel(){
     this.dialogRef.close(3);
+  }
+
+  updateForm(data: any){
+    this.pqrForm = this.fb.group({
+      asunto: [data.asunto, Validators.required],
+      idCliente: [data.idCliente, Validators.required],
+      cliente: [data.cliente, Validators.required],
+      descripcion: [data.descripcion, Validators.required]
+    });
   }
 
 }

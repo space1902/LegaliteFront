@@ -20,7 +20,7 @@ export class PqrComponent implements OnInit {
     this.getPqr();
   }
 
-  displayedColumns: string[] = ['id', 'name', 'description', 'cliente', 'actions'];
+  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'cliente', 'actions'];
   dataSource = new MatTableDataSource<PqrElement>();
 
   getPqr(){
@@ -59,6 +59,24 @@ export class PqrComponent implements OnInit {
         this.getPqr();
       }else if(result === 2){
         this.openSnackBar("Error al agregar Pqr", "Fallido");
+        this.getPqr();
+
+      }
+    });
+  }
+
+  edit(idPqr: number, asunto: string, descripcion: string, cliente:number){
+    const dialogRef = this.dialog.open(NewPqrComponent , {
+      width: '650px',
+      data: {idPqr: idPqr, asunto: asunto, descripcion: descripcion, cliente: cliente}
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 1){
+        this.openSnackBar("Pqr actualizada", "Exitosa");
+        this.getPqr();
+      }else if(result === 2){
+        this.openSnackBar("Error al acualizar Pqr", "Fallido");
         this.getPqr();
 
       }
