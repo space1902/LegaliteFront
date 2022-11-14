@@ -102,6 +102,16 @@ export class PqrComponent implements OnInit {
     });
   }
 
+  buscar(termio: any){
+    if(termio.length === 0){
+      return this.getPqr();
+    }
+    this.pqrService.searchPqr(termio)
+        .subscribe((resp: any) => {
+          this.processPqrResponse(resp);
+        })
+  }
+
   openSnackBar(message:string, action:string) : MatSnackBarRef<SimpleSnackBar>{
     return this.snackBar.open(message, action, {
       duration: 3000

@@ -5,7 +5,7 @@
     <div>
       <mat-form-field hintLabel="Buscar Pqr" appearance="fill">
         <mat-label>Buscar Pqr</mat-label>
-        <input matInput #input>
+        <input matInput #input (keyup)="buscar(input.value)">
 
       </mat-form-field>
     </div>

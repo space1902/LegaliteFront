@@ -30,4 +30,9 @@ export class PqrService {
     const endpoint = `${base_url}deletepqr/ ${id}`;
     return this.http.delete(endpoint);
   }
+
+  searchPqr(id: any) {
+    const endpoint = `${base_url}searchpqr/ ${id}`;
+    return this.http.get(endpoint);
+  }
 }
