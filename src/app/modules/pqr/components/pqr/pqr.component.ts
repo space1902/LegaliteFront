@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
@@ -24,6 +25,9 @@ export class PqrComponent implements OnInit {
   displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'cliente', 'actions'];
   dataSource = new MatTableDataSource<PqrElement>();
 
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
   getPqr(){
 
     this.pqrService.getPqr()
@@ -47,6 +51,7 @@ export class PqrComponent implements OnInit {
       });
 
       this.dataSource = new MatTableDataSource<PqrElement>(dataPqr);
+      this.dataSource.paginator = this.paginator;
     }
   }
   openPqrDialog(){
