@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PqrComponent } from './components/pqr/pqr.component';
 import { MaterialModule } from '../shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewPqrComponent } from './components/new-pqr/new-pqr.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { CambioPasswordComponent } from './cambio-password/cambio-password.component';
 
 
 
 @NgModule({
   declarations: [
-    PqrComponent,
-    NewPqrComponent
+    PerfilComponent,
+    CambioPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { NewPqrComponent } from './components/new-pqr/new-pqr.component';
     ReactiveFormsModule,
   ]
 })
-export class PqrModule { }
+export class PerfilModule { }

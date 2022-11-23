@@ -1,0 +1,28 @@
+<h1 mat-dialog-title class="title">INFORMACION PERSONAL</h1>
+<mat-dialog-content>
+  <form [formGroup]="perfilForm">
+    <div class="perfil-container">
+      <mat-form-field>
+        <h3 >Nombre </h3>
+        <input matInput formControlName="nombre" required />
+      </mat-form-field>
+      <mat-form-field>
+        <h3>Direccion</h3>
+        <input matInput formControlName="direccion" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <h3>Correo</h3>
+        <input matInput formControlName="correo" required/>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="perfil-actions">
+  <button mat-button color="primary" (click)="edit()" class="perfil-buttons" >
+    <mat-icon>save</mat-icon> Editar informacion
+  </button>
+  <button mat-button color="primary" (click)="editPassword()" class="perfil-buttons">
+    <mat-icon>cached</mat-icon> Cambiar Contraseña
+  </button>
+</mat-dialog-actions>

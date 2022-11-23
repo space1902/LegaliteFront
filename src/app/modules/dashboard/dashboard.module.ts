@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './pages/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { PqrModule } from '../pqr/pqr.module';
+import { PerfilModule } from '../perfil/perfil.module';
 
 
 
@@ -14,7 +15,8 @@ import { PqrModule } from '../pqr/pqr.module';
   imports: [
     CommonModule,
     SharedModule,
-    PqrModule
+    PqrModule,
+    PerfilModule
   ]
 })
 export class DashboardModule { }

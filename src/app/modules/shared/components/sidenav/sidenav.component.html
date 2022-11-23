@@ -13,7 +13,7 @@
                 <li>
                     <button mat-icon-button>
                         <mat-icon>help_outline</mat-icon>
-                        
+
                     </button>
                 </li>
                 <li>
@@ -33,7 +33,7 @@
 
     </mat-toolbar>
 
-    
+
     <!-- empieza sidnev-->
     <mat-sidenav-container class="sidenav-container"
                             [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -44,8 +44,9 @@
                 <!-- datos del perfil-->
                 <div class="profile-card">
                     <div class="header">
-                        <h2>Victor Ortiz</h2>
-                        <h4>Victorup1902@gmail.com</h4>
+                        <h2>{{dataPqr[0].nombre}} </h2>
+                        <h4>{{dataPqr[0].correo}}</h4>
+
                     </div>
                 </div>
                 <mat-divider></mat-divider>
@@ -55,7 +56,7 @@
                         {{nav.name}}
                     </a>
 
-                
+
             </mat-nav-list>
 
         </mat-sidenav>
