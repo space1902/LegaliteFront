@@ -5,13 +5,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from './perfil/perfil.component';
 import { CambioPasswordComponent } from './cambio-password/cambio-password.component';
+import { PerfilesComponent } from './perfiles/perfiles.component';
 
 
 
 @NgModule({
   declarations: [
     PerfilComponent,
-    CambioPasswordComponent
+    CambioPasswordComponent,
+    PerfilesComponent
   ],
   imports: [
     CommonModule,

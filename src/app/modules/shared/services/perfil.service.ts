@@ -17,6 +17,12 @@ export class PerfilService {
     return this.http.get(endpoint);
 
   }
+  getPerfil2(id: any){
+
+    const endpoint = `${base_url}searchuser/ ${id}`;
+    return this.http.get(endpoint);
+
+  }
 
   updatePerfil(body: any, id: any){
 
@@ -30,5 +36,24 @@ export class PerfilService {
     const endpoint = `${base_url}updatemypassword/ ${id}`;
     return this.http.put(endpoint, body);
 
+  }
+  getPerfiles(){
+
+    const endpoint = `${base_url}searchusers/`;
+    return this.http.get(endpoint);
+
+  }
+
+  getcargo(id: any){
+
+    const endpoint = `${base_url}searchcargo/ ${id}`;
+    return this.http.get(endpoint);
+
+  }
+
+
+  deletePerfil(id: any) {
+    const endpoint = `${base_url}deleteuser/ ${id}`;
+    return this.http.delete(endpoint);
   }
 }

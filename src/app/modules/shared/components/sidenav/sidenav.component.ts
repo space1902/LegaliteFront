@@ -14,6 +14,7 @@ export class SidenavComponent implements OnInit {
   menuNav = [
     {name : "Inicio", route: "Pqr", icon:"home" },
     {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
+    {name : "Usuarios", route: "perfiles", icon:"assignment_ind" },
     {name : "Contacto soporte", route: "home", icon:"build" }
   ]
   public dataPqr: PerfilElement[] = [];

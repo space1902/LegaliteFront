@@ -1,34 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
-import { PerfilService } from 'src/app/modules/shared/services/perfil.service';
-import { PqrService } from 'src/app/modules/shared/services/pqr.service';
-import { NewPqrComponent } from '../new-pqr/new-pqr.component';
+import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
+import { PerfilService } from '../../shared/services/perfil.service';
 
 @Component({
-  selector: 'app-pqr',
-  templateUrl: './pqr.component.html',
-  styleUrls: ['./pqr.component.css']
+  selector: 'app-perfiles',
+  templateUrl: './perfiles.component.html',
+  styleUrls: ['./perfiles.component.css']
 })
-export class PqrComponent implements OnInit {
+export class PerfilesComponent implements OnInit {
 
-  public dataPqr: PerfilElement[] = [];
-  constructor(private pqrService: PqrService,
-             public dialog: MatDialog,
-             private snackBar: MatSnackBar,
-             private PerfilService: PerfilService) { }
+  public dataPerfiles: PerfilesElement[] = [];
+  constructor(public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private PerfilService: PerfilService) { }
 
   ngOnInit(): void {
-    this.getPqr();
+    this.getPerfiles();
     this.getPerfil();
   }
 
-  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'cliente', 'actions'];
-  dataSource = new MatTableDataSource<PqrElement>();
+  displayedColumns: string[] = ['idUser', 'nombre', 'nit', 'correo',  'direccion', 'cargo', 'actions'];
+  dataSource = new MatTableDataSource<PerfilesElement>();
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -39,14 +35,14 @@ export class PqrComponent implements OnInit {
     .subscribe((data : any)=> {
           console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
-          listPerfil.forEach((element : PerfilElement) => {
-            this.dataPqr.push(element)
+          listPerfil.forEach((element : PerfilesElement) => {
+            this.dataPerfiles.push(element)
 
           })
           console.log("prueba")
-          console.log(this.dataPqr[0].nombre)
-          console.log(this.dataPqr[0].idUser)
-          console.log(this.dataPqr[0].cargo)
+          console.log(this.dataPerfiles[0].nombre)
+          console.log(this.dataPerfiles[0].idUser)
+          console.log(this.dataPerfiles[0].cargo)
 
           /*this.perfilForm = this.fb.group({
             nombre: [dataPqr[0].nombre, Validators.required],
@@ -59,12 +55,12 @@ export class PqrComponent implements OnInit {
         });
   }
 
-  getPqr(){
+  getPerfiles(){
 
-    this.pqrService.getPqr()
+    this.PerfilService.getPerfiles()
       .subscribe((data:any) => {
 
-        console.log("Respuesta a las Pqr ", data);
+        console.log("Respuesta a los perfiles ", data);
         this.processPqrResponse(data);
 
       }, (err:any) => {console.log("Error: ", err)})
@@ -72,20 +68,20 @@ export class PqrComponent implements OnInit {
 
   processPqrResponse(resp: any){
 
-    const dataPqr: PqrElement[] = [];
+    const dataPerfiles: PerfilesElement[] = [];
 
     if(resp.metadata[0].code == "00"){
-      let listPqr = resp.pqrResponse.pqrs;
+      let listPerfiles = resp.usuarioResponse.usuarios;
 
-      listPqr.forEach((element: PqrElement) => {
-        dataPqr.push(element)
+      listPerfiles.forEach((element: PerfilesElement) => {
+        dataPerfiles.push(element)
       });
 
-      this.dataSource = new MatTableDataSource<PqrElement>(dataPqr);
+      this.dataSource = new MatTableDataSource<PerfilesElement>(dataPerfiles);
       this.dataSource.paginator = this.paginator;
     }
   }
-  openPqrDialog(){
+  /*openPqrDialog(){
     const dialogRef = this.dialog.open(NewPqrComponent , {
       width: '650px'
     });
@@ -100,49 +96,63 @@ export class PqrComponent implements OnInit {
 
       }
     });
-  }
+  }*/
 
-  edit(idPqr: number, asunto: string, descripcion: string, cliente:number){
-    const dialogRef = this.dialog.open(NewPqrComponent , {
+  edit(idUser: number, nombre: string , nit: number, correo: string, direccion: string, cargo:number){
+    /*const dialogRef = this.dialog.open(NewPqrComponent , {
       width: '650px',
-      data: {idPqr: idPqr, asunto: asunto, descripcion: descripcion, cliente: cliente}
-    });
+      data: {idUser: idUser, nombre: nombre, nit: nit, correo: correo, direccion: direccion, cargo: cargo}
+    });*/
 
-    dialogRef.afterClosed().subscribe((result:any) => {
+    /*dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 1){
         this.openSnackBar("Pqr actualizada", "Exitosa");
-        this.getPqr();
+        //this.getPqr();
       }else if(result === 2){
         this.openSnackBar("Error al acualizar Pqr", "Fallido");
-        this.getPqr();
+        //this.getPqr();
 
       }
-    });
+    });*/
   }
 
-  delete(idPqr: number){
+  delete(idUser: number){
     const dialogRef = this.dialog.open(ConfirmComponent , {
       width: '450px',
-      data: {idPqr: idPqr,id: 1}
+      data: {idUser: idUser,id: 2}
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 1){
-        this.openSnackBar("Pqr eliminada", "Exitosa");
-        this.getPqr();
+        this.openSnackBar("usuario eliminada", "Exitosa");
+        this.getPerfiles();
       }else if(result === 2){
-        this.openSnackBar("Error al eliminar Pqr", "Fallido");
-        this.getPqr();
+        this.openSnackBar("Error al eliminar usuario", "Fallido");
+        this.getPerfiles();
 
       }
     });
   }
 
   buscar(termio: any){
+    console.log("entro en perfiles")
     if(termio.length === 0){
-      return this.getPqr();
+      console.log("entro al 0")
+      return this.getPerfiles();
     }
-    this.pqrService.searchPqr(termio)
+    this.PerfilService.getPerfil2(termio)
+        .subscribe((resp: any) => {
+          this.processPqrResponse(resp);
+        })
+  }
+
+  buscarcargo(termio: any){
+    console.log("entro en cargo")
+    if(termio.length === 0){
+      console.log("entro al 0")
+      return this.getPerfiles();
+    }
+    this.PerfilService.getcargo(termio)
         .subscribe((resp: any) => {
           this.processPqrResponse(resp);
         })
@@ -156,18 +166,13 @@ export class PqrComponent implements OnInit {
 
 }
 
-export interface PqrElement{
-  description: string;
-  id: number;
-  name: string;
 
-}
-
-
-export interface PerfilElement{
+export interface PerfilesElement{
   idUser: string;
   nombre: string;
+  nit: BigInteger;
   correo: string;
   direccion: string;
   cargo: BigInteger;
 }
+
