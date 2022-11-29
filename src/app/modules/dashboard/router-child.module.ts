@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 
 
 const ChildRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: PqrComponent },
     { path: 'perfil', component: PerfilComponent },
     { path: 'Pqr', component: PqrComponent },
     { path: 'home', component: HomeComponent },

@@ -11,6 +11,8 @@ export class SidenavComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
 
+  public answer = localStorage.getItem('key') as string;
+  public conver = JSON.parse(this.answer);
   menuNav = [
     {name : "Inicio", route: "Pqr", icon:"home" },
     {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
@@ -21,6 +23,13 @@ export class SidenavComponent implements OnInit {
   constructor(media: MediaMatcher,
               private PerfilService: PerfilService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px');
+
+  //const answer = localStorage.getItem('key') as string;
+  //const conver = JSON.parse(answer);
+  console.log("valor del localStorage ");
+  console.log(this.conver);
+  console.log("Entro en el id ");
+  console.log(this.conver.usuarios[0].idUser);
   }
 
 
@@ -29,7 +38,8 @@ export class SidenavComponent implements OnInit {
   }
 
   getPerfil(){
-    this.PerfilService.getPerfil()
+    console.log(this.conver.usuarios[0].idUser);
+    this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
           console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;

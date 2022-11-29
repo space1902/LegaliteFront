@@ -11,9 +11,9 @@ export class PerfilService {
 
   constructor(private http: HttpClient  ) { }
 
-  getPerfil(){
+  getPerfil(id: any){
 
-    const endpoint = `${base_url}searchuser/2`;
+    const endpoint = `${base_url}searchuser/ ${id}`;
     return this.http.get(endpoint);
 
   }
@@ -55,5 +55,10 @@ export class PerfilService {
   deletePerfil(id: any) {
     const endpoint = `${base_url}deleteuser/ ${id}`;
     return this.http.delete(endpoint);
+  }
+
+  savePerfil(body: any){
+    const endpoint = `${base_url}createuser/`;
+    return this.http.post(endpoint, body);
   }
 }

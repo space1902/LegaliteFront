@@ -14,6 +14,8 @@ import { CambioPasswordComponent } from '../cambio-password/cambio-password.comp
 export class PerfilComponent implements OnInit {
 
 
+  public answer = localStorage.getItem('key') as string;
+  public conver = JSON.parse(this.answer);
   public dataPqr: PerfilElement[] = [];
   public perfilForm:FormGroup;
   constructor(private PerfilService: PerfilService,
@@ -40,7 +42,9 @@ export class PerfilComponent implements OnInit {
   }
 
   getPerfil(){
-    this.PerfilService.getPerfil()
+
+    console.log(this.conver.usuarios[0].idUser);
+    this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
           console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;

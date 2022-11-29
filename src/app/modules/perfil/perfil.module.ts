@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfilComponent } from './perfil/perfil.component';
 import { CambioPasswordComponent } from './cambio-password/cambio-password.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
+import { NewPerfilComponent } from './new-perfil/new-perfil.component';
 
 
 
@@ -13,7 +14,8 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
   declarations: [
     PerfilComponent,
     CambioPasswordComponent,
-    PerfilesComponent
+    PerfilesComponent,
+    NewPerfilComponent
   ],
   imports: [
     CommonModule,

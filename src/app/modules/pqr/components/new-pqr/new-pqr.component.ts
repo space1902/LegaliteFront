@@ -44,8 +44,10 @@ export class NewPqrComponent implements OnInit {
       cliente: this.pqrForm.get('cliente')?.value,
       descripcion: this.pqrForm.get('descripcion')?.value
     }
-    if(data != null) {
+    if(this.data != null) {
       //actualizar
+      console.log("edit pqr");
+      console.log(this.data.idPqr);
       this.pqrService.updatePqr(data, this.data.idPqr)
           .subscribe((data: any) => {
             this.dialogRef.close(1);

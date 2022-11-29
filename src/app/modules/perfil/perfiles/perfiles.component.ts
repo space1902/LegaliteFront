@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../../shared/components/confirm/confirm.component';
 import { PerfilService } from '../../shared/services/perfil.service';
+import { NewPerfilComponent } from '../new-perfil/new-perfil.component';
 
 @Component({
   selector: 'app-perfiles',
@@ -13,6 +14,9 @@ import { PerfilService } from '../../shared/services/perfil.service';
 })
 export class PerfilesComponent implements OnInit {
 
+
+  public answer = localStorage.getItem('key') as string;
+  public conver = JSON.parse(this.answer);
   public dataPerfiles: PerfilesElement[] = [];
   constructor(public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -31,7 +35,8 @@ export class PerfilesComponent implements OnInit {
 
 
   getPerfil(){
-    this.PerfilService.getPerfil()
+    console.log(this.conver.usuarios[0].idUser);
+    this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
           console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
@@ -81,30 +86,30 @@ export class PerfilesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-  /*openPqrDialog(){
-    const dialogRef = this.dialog.open(NewPqrComponent , {
+  openPqrDialog(){
+    const dialogRef = this.dialog.open(NewPerfilComponent , {
       width: '650px'
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 1){
         this.openSnackBar("Pqr agregada", "Exitosa");
-        this.getPqr();
+        this.getPerfiles();
       }else if(result === 2){
         this.openSnackBar("Error al agregar Pqr", "Fallido");
-        this.getPqr();
+        this.getPerfiles();
 
       }
     });
-  }*/
+  }
 
   edit(idUser: number, nombre: string , nit: number, correo: string, direccion: string, cargo:number){
-    /*const dialogRef = this.dialog.open(NewPqrComponent , {
+    const dialogRef = this.dialog.open(NewPerfilComponent, {
       width: '650px',
       data: {idUser: idUser, nombre: nombre, nit: nit, correo: correo, direccion: direccion, cargo: cargo}
-    });*/
+    });
 
-    /*dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 1){
         this.openSnackBar("Pqr actualizada", "Exitosa");
         //this.getPqr();
@@ -113,7 +118,7 @@ export class PerfilesComponent implements OnInit {
         //this.getPqr();
 
       }
-    });*/
+    });
   }
 
   delete(idUser: number){

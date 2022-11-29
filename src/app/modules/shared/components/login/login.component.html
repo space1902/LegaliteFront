@@ -1,0 +1,21 @@
+
+<body>
+  <div class="center">
+      <h1>INTRANET</h1>
+      <form  [formGroup]="formulario">
+        <div class="txt_field">
+          <input type="text" formControlName="correo" required />
+          <span></span>
+          <label>Usuario</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" formControlName="contraseña" required />
+          <span></span>
+          <label>Contraseña</label>
+        </div>
+        <button type="submit" class="pass">¿Olvidaste la contraseña?</button>
+        <button type="submit" class="buttons" (click)="iniciarSesio()">iniciar sesión</button>
+        <div class="signup_link"></div>
+      </form>
+  </div>
+</body>

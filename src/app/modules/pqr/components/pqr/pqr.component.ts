@@ -16,6 +16,8 @@ import { NewPqrComponent } from '../new-pqr/new-pqr.component';
 })
 export class PqrComponent implements OnInit {
 
+  public answer = localStorage.getItem('key') as string;
+  public conver = JSON.parse(this.answer);
   public dataPqr: PerfilElement[] = [];
   constructor(private pqrService: PqrService,
              public dialog: MatDialog,
@@ -27,7 +29,7 @@ export class PqrComponent implements OnInit {
     this.getPerfil();
   }
 
-  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'cliente', 'actions'];
+  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'actions'];
   dataSource = new MatTableDataSource<PqrElement>();
 
   @ViewChild(MatPaginator)
@@ -35,7 +37,8 @@ export class PqrComponent implements OnInit {
 
 
   getPerfil(){
-    this.PerfilService.getPerfil()
+    console.log(this.conver.usuarios[0].idUser);
+    this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
           console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;

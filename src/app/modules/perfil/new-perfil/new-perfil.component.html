@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{estadoForm}} Usuarios</h2>
+<mat-dialog-content>
+  <form [formGroup]="perfilForm">
+    <div class="perfil-container">
+      <mat-form-field>
+        <input matInput placeholder="Nombre" formControlName="nombre" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Cedula" formControlName="cedula" type="number" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Correo" formControlName="correo" required/>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Direccion" formControlName="direccion" required></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Cargo" formControlName="cargo" required></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="perfilForm.invalid">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+  <button mat-button color="primary"(click)="onCancel()">
+    <mat-icon>cancel</mat-icon> Cancelar
+  </button>
+</mat-dialog-actions>
+

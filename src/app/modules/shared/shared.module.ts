@@ -6,13 +6,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 
 
 
 @NgModule({
   declarations: [
     SidenavComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    LoginComponent
   ],
   exports: [
     SidenavComponent
@@ -22,7 +25,8 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
     RouterModule,
     MaterialModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
