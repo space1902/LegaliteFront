@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginServiceService } from '../../services/login-service.service';
 
+export let browserRefresh = false;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,15 +14,18 @@ export class LoginComponent implements OnInit {
 
   public formulario: FormGroup;
 
+
   constructor(private router: Router,
               private fb: FormBuilder,
               private login: LoginServiceService) {
 
     this.formulario = this.fb.group({
-      correo: ['Lider1@leagalite.com.com',[Validators.email]],
-      contraseña: ['0987654321', [Validators.minLength(6)]]
+      correo: ['victorup1902@gmail.com',[Validators.email]],
+      password: ['123456890', [Validators.minLength(6)]]
       });
   }
+
+
 
   ngOnInit(): void {
   }
@@ -28,27 +33,23 @@ export class LoginComponent implements OnInit {
   iniciarSesio(){
      let dataForm = {
       correo: this.formulario.get('correo')?.value,
-      contraseña: this.formulario.get('contraseña')?.value
+      password: this.formulario.get('password')?.value
     }
 
-    if(dataForm.correo == "" || dataForm.contraseña == ""){
+    if(dataForm.correo == "" || dataForm.password == ""){
 
     alert('Ingrese la informacion requerida en el formulario')
     }
     if(dataForm != null){
 
-      this.login.getLogin(dataForm.correo, dataForm.contraseña)
+      this.login.getLogin(dataForm.correo, dataForm.password)
           .subscribe((data: any, ) => {
-            //this.dialogRef.close(1);
-            console.log("Ingreso ");
-            console.log(data);
 
             const resFormat = JSON.stringify(data.usuarioResponse);
-            localStorage.setItem('key',resFormat);
+            this.login.setUserLS(resFormat);
             this.login.user = true;
             this.router.navigate(['dashboard']);
           }, (error:any) => {
-            //this.dialogRef.close(2);
             alert("No pudo ingresar algun dato esta incorrecto");
           })
     //this.router.navigate(['dashboard']);

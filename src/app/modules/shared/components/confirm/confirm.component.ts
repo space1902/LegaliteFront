@@ -24,8 +24,6 @@ export class ConfirmComponent implements OnInit {
 
   delete(){
     if(this.data.id == 1){
-      console.log("entro")
-      console.log(this.data.idPqr)
       if(this.data != null) {
         this.PqrService.deletePqr(this.data.idPqr)
             .subscribe((data: any) => {
@@ -38,8 +36,6 @@ export class ConfirmComponent implements OnInit {
       }
     }
     if(this.data.id == 2){
-      console.log("entro")
-      console.log(this.data.idUser)
       if(this.data != null) {
         this.PerfilService.deletePerfil(this.data.idUser)
             .subscribe((data: any) => {

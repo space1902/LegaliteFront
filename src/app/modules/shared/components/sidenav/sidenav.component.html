@@ -21,9 +21,9 @@
                         <mat-icon>person_outline</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="closeSession()">
                             <mat-icon>exit_to_app</mat-icon>
-                            Cerrar Cesion
+                            Cerrar Sesión
                         </button>
 
                     </mat-menu>
@@ -55,7 +55,6 @@
                         <mat-icon class="icon">{{ nav.icon}}</mat-icon>
                         {{nav.name}}
                     </a>
-
 
             </mat-nav-list>
 

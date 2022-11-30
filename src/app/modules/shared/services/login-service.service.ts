@@ -22,10 +22,24 @@ export class LoginServiceService {
 
   constructor(private http: HttpClient  ) { }
 
-  getLogin(correo?: any, contraseña?: any): Observable<any | boolean>{
-    const endpoint = `${base_url}validarusuario/${correo}/${contraseña}`;
+  getLogin(correo?: any, password?: any): Observable<any | boolean>{
+    const endpoint = `${base_url}validarusuario/${correo}/${password}`;
 
     return this.http.get(endpoint);
+  }
+
+  setUserLS(data: any) {
+    localStorage.setItem('key',data);
+  }
+
+  getUserLS(){
+
+    if(!localStorage.getItem('key')){
+      return;
+    }
+
+    return JSON.parse( localStorage.getItem('key') || '');
+
   }
 
 }

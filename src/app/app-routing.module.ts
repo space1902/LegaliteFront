@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: '', pathMatch: 'full', redirectTo: '/login' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(
     routes,
-    {enableTracing: false, useHash: true}
+    {enableTracing: false, useHash: false}
     ),
     DashboardRoutingModule
   ],

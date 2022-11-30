@@ -35,4 +35,21 @@ export class PqrService {
     const endpoint = `${base_url}searchpqr/ ${id}`;
     return this.http.get(endpoint);
   }
+
+  searchMyPqr(id: any) {
+    const endpoint = `${base_url}searchmypqr/ ${id}`;
+    return this.http.get(endpoint);
+  }
+
+  check(id: any, body: any){
+    const endpoint = `${base_url}updatestado/ ${id}`;
+    return this.http.put(endpoint, body);
+
+  }
+
+  Returned(id: any, body: any){
+    const endpoint = `${base_url}updatestadodevuelto/ ${id}`;
+    return this.http.put(endpoint, body);
+
+  }
 }

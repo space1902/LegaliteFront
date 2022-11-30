@@ -71,12 +71,18 @@
         <td mat-cell *matCellDef="let element">{{element.cargo}}</td>
       </ng-container>
 
+      <!-- description colum -->
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef>Contraseña</th>
+        <td mat-cell *matCellDef="let element">{{element.password}}</td>
+      </ng-container>
+
       <!-- Acciones tabla -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element; let i=index">
           <button mat-icon-button color="primary">
-            <mat-icon aria-label="Edit" (click)="edit(element.idUser, element.nombre, element.nit, element.correo, element.direccion, element.cargo)">edit</mat-icon>
+            <mat-icon aria-label="Edit" (click)="edit(element.idUser, element.nombre, element.nit, element.correo, element.direccion, element.cargo,element.password)">edit</mat-icon>
           </button>
           <button mat-icon-button color="primary"(click)="delete(element.idUser)">
             <mat-icon aria-label="Delete">delete_forever</mat-icon>

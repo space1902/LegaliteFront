@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { LoginServiceService } from './services/login-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardsGuard implements CanActivate {
+export class GuardsGuard implements CanActivate, CanLoad {
 
   public user = false;
 
@@ -19,6 +19,9 @@ export class GuardsGuard implements CanActivate {
   }
 
   constructor(private lgSrv: LoginServiceService){}
+  canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.lgSrv.User;
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,

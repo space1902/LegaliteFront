@@ -1,5 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginServiceService } from '../../services/login-service.service';
 import { PerfilService } from '../../services/perfil.service';
 
 @Component({
@@ -10,57 +12,79 @@ import { PerfilService } from '../../services/perfil.service';
 export class SidenavComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
+  private user: any = null;
+
 
   public answer = localStorage.getItem('key') as string;
   public conver = JSON.parse(this.answer);
-  menuNav = [
-    {name : "Inicio", route: "Pqr", icon:"home" },
-    {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
-    {name : "Usuarios", route: "perfiles", icon:"assignment_ind" },
-    {name : "Contacto soporte", route: "home", icon:"build" }
-  ]
+
+
+  public menuNav: any;
+
   public dataPqr: PerfilElement[] = [];
   constructor(media: MediaMatcher,
-              private PerfilService: PerfilService) {
+              private PerfilService: PerfilService,private router: Router, private loginSrv: LoginServiceService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px');
 
   //const answer = localStorage.getItem('key') as string;
   //const conver = JSON.parse(answer);
-  console.log("valor del localStorage ");
-  console.log(this.conver);
-  console.log("Entro en el id ");
-  console.log(this.conver.usuarios[0].idUser);
+
+      this.user = this.loginSrv.getUserLS();
+      this.menuNav = this.user  && (this.user.usuarios[0].cargo === 4 || this.user.usuarios[0].cargo === 1) ?[
+      {name : "Inicio", route: "Pqr", icon:"home" },
+      {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
+      {name : "Usuarios", route: "perfiles", icon:"assignment_ind" },
+      {name : "Contacto soporte", route: "home", icon:"build" }
+    ] : [{name : "Inicio", route: "Pqr", icon:"home" },
+    {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
+    {name : "Contacto soporte", route: "home", icon:"build" }];
+/*
+  if(this.user.usuarios[0].cargo === 4 || this.user.usuarios[0].cargo === 1){
+    this.menuNav = [
+      {name : "Inicio", route: "Pqr", icon:"home" },
+      {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
+      {name : "Usuarios", route: "perfiles", icon:"assignment_ind" },
+      {name : "Contacto soporte", route: "home", icon:"build" }
+    ]
+  }
+  else{
+    this.menuNav = [
+      {name : "Inicio", route: "Pqr", icon:"home" },
+      {name : "Mi perfil", route: "perfil", icon:"supervisor_account" },
+      {name : "Usuarios", route: "perfiles", icon:"assignment_ind" },
+      {name : "Contacto soporte", route: "home", icon:"build" }
+    ]
+  }*/
   }
 
 
   ngOnInit(): void {
     this.getPerfil();
+
   }
 
   getPerfil(){
-    console.log(this.conver.usuarios[0].idUser);
     this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
-          console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
           listPerfil.forEach((element : PerfilElement) => {
             this.dataPqr.push(element)
 
           })
-          console.log("prueba")
-          console.log(this.dataPqr[0].nombre)
-          console.log(this.dataPqr[0].idUser)
-          console.log(this.dataPqr[0].cargo)
-
-          /*this.perfilForm = this.fb.group({
-            nombre: [dataPqr[0].nombre, Validators.required],
-            direccion: [dataPqr[0].direccion, Validators.required],
-            correo: [dataPqr[0].correo, Validators.required]
-          });*/
-
         }, (error:any) => {
           console.log("Error: " + error);
         });
+  }
+
+  closeSession(){
+
+    if(!localStorage.getItem('key')){
+      this.router.navigate(['login']);
+      return;
+    }
+
+    localStorage.removeItem('key');
+    this.router.navigate(['login']);
   }
 
 

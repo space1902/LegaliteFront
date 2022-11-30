@@ -17,7 +17,6 @@ export class NewPqrComponent implements OnInit {
               private dialogRef: MatDialogRef<NewPqrComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    console.log(data);
     this.estadoForm = "Agregar";
 
 
@@ -46,8 +45,6 @@ export class NewPqrComponent implements OnInit {
     }
     if(this.data != null) {
       //actualizar
-      console.log("edit pqr");
-      console.log(this.data.idPqr);
       this.pqrService.updatePqr(data, this.data.idPqr)
           .subscribe((data: any) => {
             this.dialogRef.close(1);
@@ -58,7 +55,6 @@ export class NewPqrComponent implements OnInit {
       //crear nueva pqr
     this.pqrService.savePqr(data)
         .subscribe((data: any) => {
-          console.log(data);
           this.dialogRef.close(1);
         }, (error) => {
           this.dialogRef.close(2);

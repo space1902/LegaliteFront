@@ -18,8 +18,8 @@ export class CambioPasswordComponent implements OnInit {
 
     this.passwordForm = this.fb.group({
       correo: ['', Validators.required],
-      contraseña: ['', Validators.required],
-      nuevacontraseña: ['algo', Validators.required]
+      password: ['', Validators.required],
+      nuevapassword: ['algo', Validators.required]
     });
   }
 
@@ -30,11 +30,9 @@ export class CambioPasswordComponent implements OnInit {
   changePassword(){
     let data = {
       correo: this.passwordForm.get('correo')?.value,
-      contraseña: this.passwordForm.get('contraseña')?.value,
-      nuevacontraseña: this.passwordForm.get('nuevacontraseña')?.value
+      password: this.passwordForm.get('password')?.value,
+      nuevapassword: this.passwordForm.get('nuevapassword')?.value
     }
-
-    console.log(data)
 
     if(data != null) {
       //actualizar
@@ -46,7 +44,8 @@ export class CambioPasswordComponent implements OnInit {
           })
     }else {
       //error de datos
-    console.log("debe haber informacion")
+      alert("debe haber informacion")
+
       }
   }
   onCancel(){

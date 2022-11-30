@@ -24,12 +24,14 @@ export class PqrComponent implements OnInit {
              private snackBar: MatSnackBar,
              private PerfilService: PerfilService) { }
 
+  public validar = this.conver.usuarios[0].cargo;
+
   ngOnInit(): void {
     this.getPqr();
     this.getPerfil();
   }
 
-  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description', 'actions'];
+  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description',  'estado', 'actions'];
   dataSource = new MatTableDataSource<PqrElement>();
 
   @ViewChild(MatPaginator)
@@ -37,25 +39,13 @@ export class PqrComponent implements OnInit {
 
 
   getPerfil(){
-    console.log(this.conver.usuarios[0].idUser);
     this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
-          console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
           listPerfil.forEach((element : PerfilElement) => {
             this.dataPqr.push(element)
 
           })
-          console.log("prueba")
-          console.log(this.dataPqr[0].nombre)
-          console.log(this.dataPqr[0].idUser)
-          console.log(this.dataPqr[0].cargo)
-
-          /*this.perfilForm = this.fb.group({
-            nombre: [dataPqr[0].nombre, Validators.required],
-            direccion: [dataPqr[0].direccion, Validators.required],
-            correo: [dataPqr[0].correo, Validators.required]
-          });*/
 
         }, (error:any) => {
           console.log("Error: " + error);
@@ -67,7 +57,6 @@ export class PqrComponent implements OnInit {
     this.pqrService.getPqr()
       .subscribe((data:any) => {
 
-        console.log("Respuesta a las Pqr ", data);
         this.processPqrResponse(data);
 
       }, (err:any) => {console.log("Error: ", err)})
@@ -105,10 +94,10 @@ export class PqrComponent implements OnInit {
     });
   }
 
-  edit(idPqr: number, asunto: string, descripcion: string, cliente:number){
+  edit(idPqr: number, asunto: string, idCliente: number,  descripcion: string, cliente:number, estado: number){
     const dialogRef = this.dialog.open(NewPqrComponent , {
       width: '650px',
-      data: {idPqr: idPqr, asunto: asunto, descripcion: descripcion, cliente: cliente}
+      data: {idPqr: idPqr, asunto: asunto, idCliente: idCliente, descripcion: descripcion, cliente: cliente, estado:estado}
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -157,12 +146,49 @@ export class PqrComponent implements OnInit {
     });
   }
 
+  searchMyPqr(){
+
+
+    this.pqrService.searchMyPqr(this.conver.usuarios[0].idUser)
+      .subscribe((data:any) => {
+
+        this.processPqrResponse(data);
+
+      }, (err:any) => {console.log("Error: ", err)})
+  }
+
+  check(termio: any){
+    const data:any = {}
+    this.pqrService.check(termio, data)
+    .subscribe((data: any) => {
+      alert("pqr aprovada")
+      this.getPqr();
+    }, (error) =>{
+      alert("error al aprovar Pqr")
+      this.getPqr();
+    })
+  }
+
+  Returned(termio: any){
+    const data:any = {}
+    this.pqrService.Returned(termio, data)
+    .subscribe((data: any) => {
+      alert("Pqr devuelta")
+      this.getPqr();
+    }, (error) =>{
+      alert("error al devolvr Pqr")
+      this.getPqr();
+    })
+
+  }
+
 }
 
 export interface PqrElement{
   description: string;
   id: number;
   name: string;
+  estado: number;
 
 }
 

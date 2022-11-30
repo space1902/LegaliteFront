@@ -14,8 +14,10 @@ const routes: Routes = [
             path: 'dashboard',
             component: DashboardComponent,
             loadChildren: () => import('./router-child.module').then(m => m.RouterChildModule),
-            canActivate: [GuardsGuard]
-        }
+            canActivate: [GuardsGuard],
+            canLoad: [GuardsGuard]
+        },
+        {path: '**',  redirectTo: '/login'}
 ]
 
 @NgModule({

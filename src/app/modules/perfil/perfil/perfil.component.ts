@@ -43,10 +43,8 @@ export class PerfilComponent implements OnInit {
 
   getPerfil(){
 
-    console.log(this.conver.usuarios[0].idUser);
     this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
-          console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
           listPerfil.forEach((element : PerfilElement) => {
             this.dataPqr.push(element)
@@ -57,7 +55,6 @@ export class PerfilComponent implements OnInit {
             direccion: [this.dataPqr[0].direccion, Validators.required],
             correo: [this.dataPqr[0].correo, Validators.required]
           });
-          console.log(this.dataPqr[0].cargo);
 
         }, (error:any) => {
           console.log("Error: " + error);
@@ -85,7 +82,6 @@ export class PerfilComponent implements OnInit {
       direccion: this.perfilForm.get('direccion')?.value,
       correo: this.perfilForm.get('correo')?.value
     }
-    console.log(data)
 
     if(data != null) {
       //actualizar
@@ -99,7 +95,7 @@ export class PerfilComponent implements OnInit {
           })
     }else {
       //error de datos
-    console.log("debe haber informacion")
+      alert("debe haber informacion")
       }
   }
   editPassword(){
