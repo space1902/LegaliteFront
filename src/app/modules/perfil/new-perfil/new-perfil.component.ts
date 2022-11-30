@@ -17,7 +17,6 @@ export class NewPerfilComponent implements OnInit {
               private dialogRef: MatDialogRef<NewPerfilComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    console.log(data);
     this.estadoForm = "Agregar";
 
 
@@ -26,7 +25,8 @@ export class NewPerfilComponent implements OnInit {
       cedula: ['', Validators.required],
       correo: ['', Validators.required],
       direccion: ['', Validators.required],
-      cargo: ['', Validators.required]
+      cargo: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
     if(data != null) {
@@ -44,12 +44,12 @@ export class NewPerfilComponent implements OnInit {
       nit: this.perfilForm.get('cedula')?.value,
       correo: this.perfilForm.get('correo')?.value,
       direccion: this.perfilForm.get('direccion')?.value,
-      cargo: this.perfilForm.get('cargo')?.value
+      cargo: this.perfilForm.get('cargo')?.value,
+      password: this.perfilForm.get('password')?.value
     }
+
     if(this.data != null) {
       //actualizar
-      console.log("edit perfil");
-      console.log(this.data.idPerfil);
       this.perfilservice.updatePerfil(data, this.data.idUser)
           .subscribe((data: any) => {
             this.dialogRef.close(1);
@@ -60,7 +60,6 @@ export class NewPerfilComponent implements OnInit {
       //crear nueva pqr
     this.perfilservice.savePerfil(data)
         .subscribe((data: any) => {
-          console.log(data);
           this.dialogRef.close(1);
         }, (error) => {
           this.dialogRef.close(2);
@@ -74,11 +73,12 @@ export class NewPerfilComponent implements OnInit {
 
   updateForm(data: any){
     this.perfilForm = this.fb.group({
-      nombre: [data.asunto, Validators.required],
-      cedula: [data.idCliente, Validators.required],
-      correo: [data.cliente, Validators.required],
-      direccion: [data.descripcion, Validators.required],
-      cargo: [data.descripcion, Validators.required]
+      nombre: [data.nombre, Validators.required],
+      cedula: [data.nit, Validators.required],
+      correo: [data.correo, Validators.required],
+      direccion: [data.direccion, Validators.required],
+      cargo: [data.cargo, Validators.required],
+      password: [data.password, Validators.required]
     });
   }
 

@@ -27,7 +27,7 @@ export class PerfilesComponent implements OnInit {
     this.getPerfil();
   }
 
-  displayedColumns: string[] = ['idUser', 'nombre', 'nit', 'correo',  'direccion', 'cargo', 'actions'];
+  displayedColumns: string[] = ['idUser', 'nombre', 'nit', 'correo',  'direccion', 'cargo', 'password', 'actions'];
   dataSource = new MatTableDataSource<PerfilesElement>();
 
   @ViewChild(MatPaginator)
@@ -35,25 +35,13 @@ export class PerfilesComponent implements OnInit {
 
 
   getPerfil(){
-    console.log(this.conver.usuarios[0].idUser);
     this.PerfilService.getPerfil(this.conver.usuarios[0].idUser)
     .subscribe((data : any)=> {
-          console.log(data);
           let listPerfil = data.usuarioResponse.usuarios;
           listPerfil.forEach((element : PerfilesElement) => {
             this.dataPerfiles.push(element)
 
           })
-          console.log("prueba")
-          console.log(this.dataPerfiles[0].nombre)
-          console.log(this.dataPerfiles[0].idUser)
-          console.log(this.dataPerfiles[0].cargo)
-
-          /*this.perfilForm = this.fb.group({
-            nombre: [dataPqr[0].nombre, Validators.required],
-            direccion: [dataPqr[0].direccion, Validators.required],
-            correo: [dataPqr[0].correo, Validators.required]
-          });*/
 
         }, (error:any) => {
           console.log("Error: " + error);
@@ -65,7 +53,6 @@ export class PerfilesComponent implements OnInit {
     this.PerfilService.getPerfiles()
       .subscribe((data:any) => {
 
-        console.log("Respuesta a los perfiles ", data);
         this.processPqrResponse(data);
 
       }, (err:any) => {console.log("Error: ", err)})
@@ -103,19 +90,19 @@ export class PerfilesComponent implements OnInit {
     });
   }
 
-  edit(idUser: number, nombre: string , nit: number, correo: string, direccion: string, cargo:number){
+  edit(idUser: number, nombre: string , nit: number, correo: string, direccion: string, cargo:number, password:string){
     const dialogRef = this.dialog.open(NewPerfilComponent, {
       width: '650px',
-      data: {idUser: idUser, nombre: nombre, nit: nit, correo: correo, direccion: direccion, cargo: cargo}
+      data: {idUser: idUser, nombre: nombre, nit: nit, correo: correo, direccion: direccion, cargo: cargo, password:password}
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 1){
         this.openSnackBar("Pqr actualizada", "Exitosa");
-        //this.getPqr();
+        this.getPerfiles();
       }else if(result === 2){
         this.openSnackBar("Error al acualizar Pqr", "Fallido");
-        //this.getPqr();
+        this.getPerfiles();
 
       }
     });
@@ -140,9 +127,7 @@ export class PerfilesComponent implements OnInit {
   }
 
   buscar(termio: any){
-    console.log("entro en perfiles")
     if(termio.length === 0){
-      console.log("entro al 0")
       return this.getPerfiles();
     }
     this.PerfilService.getPerfil2(termio)
@@ -152,9 +137,7 @@ export class PerfilesComponent implements OnInit {
   }
 
   buscarcargo(termio: any){
-    console.log("entro en cargo")
     if(termio.length === 0){
-      console.log("entro al 0")
       return this.getPerfiles();
     }
     this.PerfilService.getcargo(termio)
@@ -179,5 +162,6 @@ export interface PerfilesElement{
   correo: string;
   direccion: string;
   cargo: BigInteger;
+  password: string;
 }
 
