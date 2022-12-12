@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/modules/shared/components/confirm/confirm.component';
 import { PerfilService } from 'src/app/modules/shared/services/perfil.service';
 import { PqrService } from 'src/app/modules/shared/services/pqr.service';
+import { NewPqrAscComponent } from '../new-pqr-asc/new-pqr-asc.component';
 import { NewPqrComponent } from '../new-pqr/new-pqr.component';
 
 @Component({
@@ -31,7 +32,7 @@ export class PqrComponent implements OnInit {
     this.getPerfil();
   }
 
-  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description',  'estado', 'actions'];
+  displayedColumns: string[] = ['id', 'asunto', 'cliente', 'nit',  'description',  'estado',  'asesor', 'actions'];
   dataSource = new MatTableDataSource<PqrElement>();
 
   @ViewChild(MatPaginator)
@@ -54,7 +55,7 @@ export class PqrComponent implements OnInit {
 
   getPqr(){
 
-    this.pqrService.getPqr()
+    this.pqrService.getPqr(this.conver.usuarios[0].cargo, this.conver.usuarios[0].nit)
       .subscribe((data:any) => {
 
         this.processPqrResponse(data);
@@ -71,6 +72,8 @@ export class PqrComponent implements OnInit {
 
       listPqr.forEach((element: PqrElement) => {
         dataPqr.push(element)
+        console.log("se ven los elementos")
+        console.log(element)
       });
 
       this.dataSource = new MatTableDataSource<PqrElement>(dataPqr);
@@ -98,6 +101,24 @@ export class PqrComponent implements OnInit {
     const dialogRef = this.dialog.open(NewPqrComponent , {
       width: '650px',
       data: {idPqr: idPqr, asunto: asunto, idCliente: idCliente, descripcion: descripcion, cliente: cliente, estado:estado}
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 1){
+        this.openSnackBar("Pqr actualizada", "Exitosa");
+        this.getPqr();
+      }else if(result === 2){
+        this.openSnackBar("Error al acualizar Pqr", "Fallido");
+        this.getPqr();
+
+      }
+    });
+  }
+
+  editAsc(idPqr: number, asunto: string, idCliente: number,  descripcion: string, cliente:number, estado: number, idAsesor: number){
+    const dialogRef = this.dialog.open(NewPqrAscComponent , {
+      width: '650px',
+      data: {idPqr: idPqr, asunto: asunto, idCliente: idCliente, descripcion: descripcion, cliente: cliente, estado:estado, idAsesor:idAsesor}
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -189,6 +210,7 @@ export interface PqrElement{
   id: number;
   name: string;
   estado: number;
+  idAsesor: number;
 
 }
 

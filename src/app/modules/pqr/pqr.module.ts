@@ -5,13 +5,15 @@ import { MaterialModule } from '../shared/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewPqrComponent } from './components/new-pqr/new-pqr.component';
+import { NewPqrAscComponent } from './components/new-pqr-asc/new-pqr-asc.component';
 
 
 
 @NgModule({
   declarations: [
     PqrComponent,
-    NewPqrComponent
+    NewPqrComponent,
+    NewPqrAscComponent
   ],
   imports: [
     CommonModule,

@@ -17,7 +17,11 @@ const routes: Routes = [
             canActivate: [GuardsGuard],
             canLoad: [GuardsGuard]
         },
-        {path: '**',  redirectTo: '/login'}
+        {path: '**',  redirectTo: '/login'},
+        {
+          path: ' ',
+          redirectTo: '/login'
+      }
 ]
 
 @NgModule({

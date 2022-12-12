@@ -19,7 +19,6 @@ export class NewPerfilComponent implements OnInit {
 
     this.estadoForm = "Agregar";
 
-
     this.perfilForm = this.fb.group({
       nombre: ['', Validators.required],
       cedula: ['', Validators.required],

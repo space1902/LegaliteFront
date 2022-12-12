@@ -83,9 +83,10 @@ export class PerfilComponent implements OnInit {
       correo: this.perfilForm.get('correo')?.value
     }
 
+    console.log(data);
     if(data != null) {
       //actualizar
-      this.PerfilService.updatePerfil(data, 2)
+      this.PerfilService.updatePerfil(data, this.conver.usuarios[0].idUser)
           .subscribe((data: any) => {
             //this.dialogRef.close(1);
             alert("Se actualizo la informacion");

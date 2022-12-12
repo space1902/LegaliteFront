@@ -64,11 +64,20 @@
         <td mat-cell *matCellDef="let element">{{element.estado}}</td>
       </ng-container>
 
+      <!-- description colum -->
+      <ng-container matColumnDef="asesor">
+        <th mat-header-cell *matHeaderCellDef>Nit(Asesor) </th>
+        <td mat-cell *matCellDef="let element">{{element.idAsesor}}</td>
+      </ng-container>
+
       <!-- Acciones tabla -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element; let i=index">
-          <button *ngIf="validar==4 || validar==1 || validar==3" mat-icon-button color="primary" (click)="edit(element.idPqr, element.asunto, element.idCliente, element.descripcion, element.cliente, element.estado)">
+          <button *ngIf="validar==3" mat-icon-button color="primary" (click)="edit(element.idPqr, element.asunto, element.idCliente, element.descripcion, element.cliente, element.estado)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <button *ngIf="validar==4 || validar==1 " mat-icon-button color="primary" (click)="editAsc(element.idPqr, element.asunto, element.idCliente, element.descripcion, element.cliente, element.estado, element.idAsesor)">
             <mat-icon aria-label="Edit">edit</mat-icon>
           </button>
           <button *ngIf="validar==4 || validar==1 || validar==3" mat-icon-button color="primary" (click)="delete(element.idPqr)">

@@ -11,8 +11,8 @@ export class PqrService {
 
   constructor(private http: HttpClient) { }
 
-  getPqr(){
-    const endpoint = `${base_url}searchpqr/`;
+  getPqr(id: any, nit: any){
+    const endpoint = `${base_url}searchpqr1/ ${id}/ ${nit}`;
     return this.http.get(endpoint);
   }
 

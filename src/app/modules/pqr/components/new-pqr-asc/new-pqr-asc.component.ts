@@ -1,21 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PqrService } from 'src/app/modules/shared/services/pqr.service';
+import { NewPqrComponent } from '../new-pqr/new-pqr.component';
 
 @Component({
-  selector: 'app-new-pqr',
-  templateUrl: './new-pqr.component.html',
-  styleUrls: ['./new-pqr.component.css']
+  selector: 'app-new-pqr-asc',
+  templateUrl: './new-pqr-asc.component.html',
+  styleUrls: ['./new-pqr-asc.component.css']
 })
-export class NewPqrComponent implements OnInit {
+export class NewPqrAscComponent implements OnInit {
 
   public pqrForm:FormGroup;
   public estadoForm: String = "";
   constructor(private fb:FormBuilder,
-              private pqrService: PqrService,
-              private dialogRef: MatDialogRef<NewPqrComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+    private pqrService: PqrService,
+    private dialogRef: MatDialogRef<NewPqrAscComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.estadoForm = "Agregar";
 
@@ -32,7 +33,7 @@ export class NewPqrComponent implements OnInit {
       this.updateForm(data)
       this.estadoForm = "Actualizar";
     }
-   }
+    }
 
   ngOnInit(): void {
   }
@@ -42,8 +43,11 @@ export class NewPqrComponent implements OnInit {
       asunto: this.pqrForm.get('asunto')?.value,
       idCliente: this.pqrForm.get('idCliente')?.value,
       cliente: this.pqrForm.get('cliente')?.value,
-      descripcion: this.pqrForm.get('descripcion')?.value
+      descripcion: this.pqrForm.get('descripcion')?.value,
+      idAsesor: this.pqrForm.get('idAsesor')?.value
     }
+    console.log("Actualizar pqr");
+    console.log(data.idAsesor);
     if(this.data != null) {
       //actualizar
       this.pqrService.updatePqr(data, this.data.idPqr)
@@ -72,7 +76,8 @@ export class NewPqrComponent implements OnInit {
       asunto: [data.asunto, Validators.required],
       idCliente: [data.idCliente, Validators.required],
       cliente: [data.cliente, Validators.required],
-      descripcion: [data.descripcion, Validators.required]
+      descripcion: [data.descripcion, Validators.required],
+      idAsesor: [data.idAsesor, Validators.required]
     });
   }
 

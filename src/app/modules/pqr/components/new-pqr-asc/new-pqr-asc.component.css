@@ -1,0 +1,8 @@
+.pqr-container{
+  display:flex;
+  flex-direction:column;
+}
+
+.pqr-container > * {
+  width: 100%;
+}
